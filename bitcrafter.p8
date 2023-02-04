@@ -44,120 +44,119 @@ end
 -->8
 -- player
 
--- player spr to be drawn
-plr_spr = 1
--- player coordinates
-plr_x = 60
-plr_y = 60
-plr_z = 0
--- player stats
-plr_h_max = 10
-plr_h_cur = 10
--- indicates player stand still
-plr_standing = true
--- indicates facing direction
-plr_hdng = ⬆️ -- ⬆️/⬇️/⬅️/➡️
+plr = 
+{
+ ["spr"]   = 3,
+ ["x"]     = 60,
+ ["y"]     = 60,
+ ["z"]     = 0,
+ ["hdng"]  = ⬇️, -- ⬆️/⬇️/⬅️/➡️
+ ["h_max"] = 10, 
+ ["h_cur"] = 10,
+ ["stand"] = true,
+ 
+}
 
 function draw_plr()
- if (plr_standing) then
+ if (plr.stand) then
 		if (anim_cnt < 15) then
-		 if (plr_hdng==⬆️) then
-		  plr_spr = 1
-		 elseif (plr_hdng==⬇️) then
-		  plr_spr = 3
-		 elseif (plr_hdng==⬅️) then
-		  plr_spr = 5
-		 elseif (plr_hdng==➡️) then
-		  plr_spr = 7
+		 if (plr.hdng==⬆️) then
+		  plr.spr = 1
+		 elseif (plr.hdng==⬇️) then
+		  plr.spr = 3
+		 elseif (plr.hdng==⬅️) then
+		  plr.spr = 5
+		 elseif (plr.hdng==➡️) then
+		  plr.spr = 7
 		 end
 	 else
-	 	if (plr_hdng==⬆️) then
-		  plr_spr = 2
-		 elseif (plr_hdng==⬇️) then
-		  plr_spr = 4
-		 elseif (plr_hdng==⬅️) then
-		  plr_spr = 6
-		 elseif (plr_hdng==➡️) then
-		  plr_spr = 8
+	 	if (plr.hdng==⬆️) then
+		  plr.spr = 2
+		 elseif (plr.hdng==⬇️) then
+		  plr.spr = 4
+		 elseif (plr.hdng==⬅️) then
+		  plr.spr = 6
+		 elseif (plr.hdng==➡️) then
+		  plr.spr = 8
 		 end 
 	 end
 	end
 	-- actual drawing
-	spr(plr_spr, plr_x-4, plr_y-4)
+	spr(plr.spr, plr.x-4, plr.y-4)
 end
 
 function plr_move(dir)
- plr_standing = false
+ plr.stand = false
  -- moving player up
 	if (dir==⬆️) then
-		if (mapg[plr_z]
-		        [flr(plr_x/8)]
-		        [flr((plr_y-1)/8)].w)
+		if (mapg[plr.z]
+		        [flr(plr.x/8)]
+		        [flr((plr.y-1)/8)].w)
 		 then
-		  plr_y -= 1
+		  plr.y -= 1
 		end
-		plr_hdng = ⬆️
+		plr.hdng = ⬆️
 		if anim_cnt%5==0 then
-		 if (plr_spr==17) then
-		  plr_spr = 18
-		 elseif plr_spr==18 then
-		  plr_spr = 17
+		 if (plr.spr==17) then
+		  plr.spr = 18
+		 elseif plr.spr==18 then
+		  plr.spr = 17
 		 else
-		  plr_spr = 17
+		  plr.spr = 17
 		 end
 		end
 	-- moving player down
 	elseif (dir==⬇️) then
-	 if (mapg[plr_z]
-		        [flr(plr_x/8)]
-		        [flr((plr_y+1)/8)].w)
+	 if (mapg[plr.z]
+		        [flr(plr.x/8)]
+		        [flr((plr.y+1)/8)].w)
 		then
-		 plr_y += 1
+		 plr.y += 1
 		end
-	 plr_hdng = ⬇️
+	 plr.hdng = ⬇️
 		if anim_cnt%5==0 then
-		 if (plr_spr==19) then
-		  plr_spr = 20
-		 elseif plr_spr==20 then
-		  plr_spr = 19
+		 if (plr.spr==19) then
+		  plr.spr = 20
+		 elseif plr.spr==20 then
+		  plr.spr = 19
 		 else
-		  plr_spr = 19
+		  plr.spr = 19
 		 end
 		end
 	-- moving player left
 	elseif (dir==⬅️) then
-	 plr_hdng = ⬅️
-	 		if (mapg[plr_z]
-		        [flr((plr_x-1)/8)]
-		        [flr(plr_y/8)].w)
+	 plr.hdng = ⬅️
+	 		if (mapg[plr.z]
+		        [flr((plr.x-1)/8)]
+		        [flr(plr.y/8)].w)
 		 then
-		  plr_x -= 1
+		  plr.x -= 1
 		end
 		if anim_cnt%5==0 then
-		 if (plr_spr==21) then
-		  plr_spr = 22
-		 elseif plr_spr==22 then
-		  plr_spr = 21
+		 if (plr.spr==21) then
+		  plr.spr = 22
+		 elseif plr.spr==22 then
+		  plr.spr = 21
 		 else
-		  plr_spr = 21
+		  plr.spr = 21
 		 end
 		end
 	-- moving player right
 	elseif (dir==➡️) then
-	 plr_hdng = ➡️
-	 		if (mapg[plr_z]
-		        [flr((plr_x+1)/8)]
-		        [flr(plr_y/8)].w)
+	 plr.hdng = ➡️
+	 		if (mapg[plr.z]
+		        [flr((plr.x+1)/8)]
+		        [flr(plr.y/8)].w)
 		 then
-		  plr_x += 1
+		  plr.x += 1
 		end
 			if anim_cnt%5==0 then
-		 	if (plr_spr==23) then
-		   plr_spr = 24
-		  elseif plr_spr==24 then
-		   plr_spr = 23
+		 	if (plr.spr==23) then
+		   plr.spr = 24
+		  elseif plr.spr==24 then
+		   plr.spr = 23
 		  else
-		   plr_spr = 23
+		   plr.spr = 23
 		 end
 		end
 	end	
@@ -166,7 +165,7 @@ end
 
 -- when no move btn pressed
 function plr_stand()
-	plr_standing = true
+	plr.stand = true
 end
 -->8
 -- ui
@@ -174,26 +173,28 @@ end
 -- displays user interface
 -- like health, coords etc.
 
--- ui coordinates
-ui_x = 1
-ui_y = 1
-ui_col = 7
-
+-- ui settings
+ui =
+{
+ ["x"]   = 1,
+ ["y"]   = 1,
+ ["col"] = 7
+}
 
 function draw_ui()
 	print("♥ "..
-							plr_h_cur..
+							plr.h_cur..
 							"/"..
-							plr_h_max..
+							plr.h_max..
 							" x:"..
-							plr_x..
+							plr.x..
 							" y:"..
-							plr_y..
-							" z:"..
-							plr_z,
-							ui_x,
-							ui_y,
-							ui_col)
+							plr.y..
+ 							" z:"..
+							plr.z,
+							ui.x,
+							ui.y,
+							ui.col)
 end
 -->8
 -- logging
@@ -209,7 +210,7 @@ log_x = 1
 log_y = 122
 
 -- color of log message
-log_col = 7
+log_col = 8
 
 -- drawing log on screen
 function draw_log()
@@ -273,7 +274,7 @@ function gen_floor(z)
 end
 
 function draw_map()
- local floor=mapg[plr_z]
+ local floor=mapg[plr.z]
  for x=0, 16 do
   for y=0, 16 do
    -- actual drawing
@@ -285,7 +286,7 @@ end
 
 __gfx__
 00000000000440000004400000044000000440000049904000499040040994000409940000000000000000000000000000000000000000000000000000000000
-000000000049940000499400004ff400004ff400000f4900000f49000094f0000094f00000000000000000000000000000000000000000000000000000000000
+000000000049940000499400044ff440044ff440000f4900000f49000094f0000094f00000000000000000000000000000000000000000000000000000000000
 007007000494494004944940049ff940049ff940000f9490000f94900949f0000949f00000000000000000000000000000000000000000000000000000000000
 0007700000d9920002d992d000d2d20002d2d2d00002d2400002d240042d2000042d200000000000000000000000000000000000000000000000000000000000
 000770000d2d2d200f2d2df00d2d2d200f2d2df0000dfd00000d2d0000dfd00000d2d00000000000000000000000000000000000000000000000000000000000

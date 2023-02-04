@@ -28,6 +28,7 @@ BitCrafter is a Pico-8 game which is about exploring, surviving and building. (A
 ## Changelog
 
 ### 2023-02-04
+- Switched to dicts for more oo-like coding
 - Added collision detection
 - Added stones
 - Added generative map creation
