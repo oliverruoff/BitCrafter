@@ -38,6 +38,8 @@ function _draw()
  draw_map()
  -- draw the player
  draw_plr()
+ -- draw the target
+ draw_tar()
  draw_ui()
  draw_log()
 end
@@ -54,6 +56,7 @@ plr =
  ["h_max"] = 10, 
  ["h_cur"] = 10,
  ["stand"] = true,
+ ["tar"]   = nil
  
 }
 
@@ -167,6 +170,30 @@ end
 function plr_stand()
 	plr.stand = true
 end
+
+-- drawing target of player
+function draw_tar()
+ local tar_x = flr(plr.x/8)
+ local tar_y = flr(plr.y/8)
+ if (plr.hdng == ⬆️) then
+  tar_y -= 1
+ elseif (plr.hdng == ⬇️) then
+  tar_y += 1
+ elseif (plr.hdng == ⬅️) then
+  tar_x -= 1
+ elseif (plr.hdng == ➡️) then
+  tar_x += 1
+ end
+ plr.tar = mapg[plr.z]
+               [tar_x]
+               [tar_y]
+ 
+ rect(tar_x*8,
+      tar_y*8,
+      tar_x*8+8,
+      tar_y*8+8,
+      8)
+end
 -->8
 -- ui
 
@@ -176,12 +203,15 @@ end
 -- ui settings
 ui =
 {
- ["x"]   = 1,
+ ["x"]   = 20,
  ["y"]   = 1,
- ["col"] = 7
+ ["col"] = 7,
+ ["x2"]  = 45,
+ ["y2"]  = 122
 }
 
 function draw_ui()
+ -- upper ui
 	print("♥ "..
 							plr.h_cur..
 							"/"..
@@ -195,32 +225,35 @@ function draw_ui()
 							ui.x,
 							ui.y,
 							ui.col)
+	-- lower ui
+	print("tar: "..
+	      plr.tar.n,
+	      ui.x2,
+	      ui.y2,
+	      ui.col)
 end
 -->8
 -- logging
 
--- de/activate logging
-log_activated = true
-
--- message to be logged
-logs = "test log"
-
--- position of log
-log_x = 1
-log_y = 122
-
--- color of log message
-log_col = 8
+log =
+{
+ ["active"] = true,
+ ["txt"]    = "",
+ ["x"]			   = 9,
+ ["y"]      = 9,
+ ["col"]    = 8 
+}
 
 -- drawing log on screen
 function draw_log()
- if (log_activated) then
-  logs = "log: "..tostring(logs)
-	 print(logs,
-	       log_x, 
-	       log_y,
-	       log_col)
-	 logs = ""
+ if (log.active) then
+  log.txt = "log: "..
+   tostring(log.txt)
+	 print(log.txt,
+	       log.x, 
+	       log.y,
+	       log.col)
+	 log.txt = ""
 	end
 end
 -->8
@@ -231,13 +264,24 @@ end
 mapg = {}
 
 -- different blocks
--- s = sprite <int>
+-- s = sprite   <int>
 -- w = walkable <bool>
-grass  =  {["s"]=33,["w"]=true}
-border =  {["s"]=34,["w"]=false}
-tree   =  {["s"]=35,["w"]=false}
-stone  =  {["s"]=37,["w"]=false}
-
+-- n = name     <str>
+grass  =  {["s"]=33,
+           ["w"]=true,
+           ["n"]="grass"}
+           
+border =  {["s"]=34,
+           ["w"]=false,
+           ["n"]="border"}
+           
+tree   =  {["s"]=35,
+           ["w"]=false,
+           ["n"]="tree"}
+           
+stone  =  {["s"]=37,
+           ["w"]=false,
+           ["n"]="stone"}
 
 
 --random int between l,h
@@ -277,7 +321,6 @@ function draw_map()
  local floor=mapg[plr.z]
  for x=0, 16 do
   for y=0, 16 do
-   -- actual drawing
 	  spr(floor[x][y].s, x*8, y*8)
   end
  end
