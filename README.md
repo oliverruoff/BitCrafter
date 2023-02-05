@@ -28,6 +28,7 @@ BitCrafter is a Pico-8 game which is about exploring, surviving and building. (A
 ## Changelog
 
 ### 2023-02-05
+ - Added initial background music
  - Added player target
 
 ### 2023-02-04
