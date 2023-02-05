@@ -395,7 +395,21 @@ function draw_map()
  local floor=mapg[plr.z]
  for x=0, 16 do
   for y=0, 16 do
+   -- draw block sprite
 	  spr(floor[x][y].s, x*8, y*8)
+	  -- check if block is damaged
+	  if (floor[x][y].r < 
+	      floor[x][y].d) then
+	   local b_hp_len = flr( 
+	    (floor[x][y].r/
+	     floor[x][y].d)*8)
+	   line(
+	    x*8,
+	    y*8+1,
+	    x*8+b_hp_len,
+	    y*8+1,
+	    10)
+	  end
   end
  end
 

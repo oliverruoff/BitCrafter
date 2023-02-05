@@ -40,6 +40,7 @@ I test the game on the miyoo mini. Therefore, this is the button layout.
 ## Changelog
 
 ### 2023-02-05
+ - Added block health bar
  - Added block destruction
  - Added initial background music
  - Added player target
