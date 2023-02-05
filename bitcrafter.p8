@@ -12,7 +12,7 @@ show_bag = false
 
 function _init()
 	gen_floor(0)
-	-- music(0)
+	music(0)
 end
 
 function _update()

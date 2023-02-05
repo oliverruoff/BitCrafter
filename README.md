@@ -40,6 +40,8 @@ I test the game on the miyoo mini. Therefore, this is the button layout.
 ## Changelog
 
 ### 2023-02-05
+ - Added bag view
+ - Added looting
  - Prepared player bag
  - Added block animation
  - Added destruction animation
