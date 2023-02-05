@@ -14,6 +14,18 @@ BitCrafter is a Pico-8 game which is about exploring, surviving and building. (A
     - ...
 - It will be a side project to my other projects, if I want to only code and relax a little bit :)
 
+## My test console
+
+I test the game on the miyoo mini. Therefore, this is the button layout.
+
+|Button|ID|
+|---|---|
+|A|32|
+|Y|32|
+|B|16|
+|X|16|
+
+
 ## Features 
 
 - This is a collection of ideas for features in the game:
@@ -28,6 +40,7 @@ BitCrafter is a Pico-8 game which is about exploring, surviving and building. (A
 ## Changelog
 
 ### 2023-02-05
+ - Added block destruction
  - Added initial background music
  - Added player target
 
