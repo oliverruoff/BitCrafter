@@ -10,6 +10,8 @@ anim_cnt = 0
 -- flag if bag should be drawn
 show_bag = false
 
+raining = true
+
 function _init()
 	gen_floor(0)
 	music(0)
@@ -27,6 +29,9 @@ function _update()
 	else
 	 show_bag = false
 	end
+
+	-- weather
+	if (raining) then move_rain() end
 	
 	-- player movement
  if (btn(⬅️)) then
@@ -72,6 +77,8 @@ function _draw()
  if (show_bag) then
   draw_bag()
  end
+-- weather
+if (raining) then draw_rain() end
  draw_log()
 end
 -->8
@@ -337,6 +344,45 @@ function draw_log()
 	 log.txt = ""
 	end
 end
+-->8
+-- weather
+rain_color = 12
+drops = {}
+
+function create_drop()
+	local drop = {
+	  x = rnd(300),
+	  y = -5,
+	  speed_x = -rnd(2) - 1,
+	  speed_y = rnd(2) + 1
+	}
+	add(drops, drop)
+  end
+
+function move_rain()
+	-- the higher, the more drops
+	if rnd() < 0.5 then
+		create_drop()
+	end
+	for drop in all(drops) do
+		drop.x = drop.x + drop.speed_x
+		drop.y = drop.y + drop.speed_y
+		
+		-- remove from array if drop reaches
+		-- screen bottom
+		if drop.y > 128 or drop.x < 0 then
+		del(drops, drop)
+		end
+	end
+end
+
+function draw_rain()
+	for drop in all(drops) do
+		pset(drop.x, drop.y, rain_color)
+	end
+end
+
+  
 -->8
 -- map
 
