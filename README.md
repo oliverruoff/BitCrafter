@@ -39,6 +39,9 @@ I test the game on the miyoo mini. Therefore, this is the button layout.
 
 ## Changelog
 
+### 2023-02-17
+ - Made only some grass blocks animated
+
 ### 2023-02-05
  - Added bag view
  - Added looting

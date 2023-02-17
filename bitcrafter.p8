@@ -401,7 +401,18 @@ b_map =
    ["e"]=-1,
    ["as"]=37,
    ["ae"]=37,
-   ["l"]=1}
+   ["l"]=1},
+   [4] = {
+	  ["id"]=0,
+	  ["s"]=42,
+   ["w"]=true,
+   ["n"]="grass_not_animated",
+   ["d"]=-1,
+   ["r"]=-1,
+   ["e"]=-1,
+   ["as"]=42,
+   ["ae"]=42,
+   ["l"]=nil},
  }
  
 -- blockanimation speed
@@ -425,14 +436,25 @@ function gen_floor(z)
   for y = 0, 16 do
    local rand = randb(1,100)
    local block=0
+   -- 10% tree chance
    if rand > 80 and
           rand < 90 then
     block=b_map[2]
+   -- 5% rock chance
    elseif rand > 90 and
           rand < 95 then 
     block=b_map[3]
    else
-    block=b_map[0]
+    -- setting grass evrwhrelse
+    rand2 = randb(1,100)
+    -- 10% chance of animated
+    -- grass
+    if (rand2 > 90) then
+     block=b_map[0]
+    else
+     -- rest unanimated grass
+     block=b_map[4]
+    end
    end
     -- setting borders
     if x == 0  or y == 0 or 
