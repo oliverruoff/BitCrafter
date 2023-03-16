@@ -39,6 +39,10 @@ I test the game on the miyoo mini. Therefore, this is the button layout.
 
 ## Changelog
 
+### 2023-03-16
+ - Started implementation of crafting view
+ - Changed menu rendering to fnc switch
+
 ### 2023-02-17
  - Added html to repo
  - Added rain

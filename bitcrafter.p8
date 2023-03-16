@@ -20,14 +20,19 @@ end
 function _update()
  -- animation counter reset
 	if (anim_cnt==30)	anim_cnt=0
-	
+	-- updating plr target
+ plr.tarx, plr.tary =
+  plr_tar_xy()
 	-- if bag should be shown
 	-- if so, stop everything else 
-	if (btn(❎) and btn(🅾️)) then
-	 show_bag  = true
+	if (btn(⬅️) and btn(❎)) then
+	 _draw = draw_bag()
+	 return
+	elseif (btn(➡️) and btn(❎)) then
+	 draw_crafting()
 	 return
 	else
-	 show_bag = false
+	 _draw = draw_game()
 	end
 
 	-- weather
@@ -48,9 +53,6 @@ function _update()
 	    and not btn(➡️)) then
 	 plr_stand()
 	end
-	-- updating plr target
- plr.tarx, plr.tary =
-  plr_tar_xy()
 	-- a pressed
 	if (btn(🅾️)) then
 	 -- log.txt = "❎"
@@ -64,7 +66,7 @@ function _update()
 	anim_cnt += 1
 end
 
-function _draw()
+function draw_game()
  cls()
  -- draw the map
  --map(0,0)
@@ -74,9 +76,6 @@ function _draw()
  -- draw the target
  draw_tar()
  draw_ui()
- if (show_bag) then
-  draw_bag()
- end
 -- weather
 if (raining) then draw_rain() end
  draw_log()
@@ -294,7 +293,7 @@ ui =
  ["x"]   = 20,
  ["y"]   = 1,
  ["col"] = 7,
- ["x2"]  = 45,
+ ["x2"]  = 25,
  ["y2"]  = 122
 }
 
@@ -603,6 +602,14 @@ i_map =
 	   ["name"] = "stone"
 	  }     
 	}
+-->8
+-- crafting
+
+function draw_crafting()
+	rectfill(0,0,42,42,4)
+	rectfill(0,44,42,86,4)
+	rectfill(0,88,42,128,4)
+end
 __gfx__
 00000000000440000004400000044000000440000049904000499040040994000409940000000000000000000000000000000000000000000000000000000000
 000000000049940000499400044ff440044ff440000f4900000f49000094f0000094f00000000000000000000000000000000000000000000000000000000000
